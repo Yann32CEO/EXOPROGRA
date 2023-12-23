@@ -1,0 +1,26 @@
+/**Configuration Réseau**/
+
+-Vérifier la configuarion réseau
+	ipconfig
+-Afficher le nom et le statut des interfaces réseau
+	netsh interface show interface
+-Configurer une adresse statique
+	netsh interface ip set adress "Nom de l'interface réseau" static <adresse IP><masque Réseau><passerelle(Optionelle)>
+	Ex:C:\>netsh interface ip set address "Ethernet" static 192.168.1.99 255.255.255.0 192.168.1.1
+C:\>netsh interface ipv6 set address "Ethernet" 2a02:a03f:4299:e700:988f:c0df:a00f:856c/64
+-Ajouter des adresse Ip
+	netsh interface ip add address "Nom de l'interface réseau" <Adresse Ip> <Masque Réseau><passerelle(Optionelle)>
+-Supprimer des adresses
+	netsh interface ip delete address "Nom de l'interface réseau" <Adresse Ip> <Masque Réseau><passerelle(Optionelle)>
+-Configuration dynamique
+	netsh interface ip set adress "Nom de l'interface réseau" dhcp 	
+-Configuration DNS 
+	netsh interface ip set dns "Nom de l'interface réseau" static <Ip du serveur DNS>
+-Activer/Désactiver une carte reéseau
+	netsh interface set "Nom de l'interface réseau" enable/disable
+-Vérifier une passerell
+	route print
+-Configurer une route
+	route add -p <Ip de destination><masque réseau><Ip de la passerelle>
+-Supprimmer une route
+	route delete <Ip de passerelle>
