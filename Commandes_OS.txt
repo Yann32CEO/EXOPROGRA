@@ -1,4 +1,49 @@
 Commandes os :
 
--changer le mot de passe 
+
+/**Commande sous linux**/
+
+
+-Passer en utilisateur root 
+	su root
+-Passer en super utilisateur
+	sudo
+-Besoins d'aide pour une commande 
+	<commande> --help
+-Changer le mot de passe 
 	passwd
+-Naviguer dans les fichiers et les répertoires 
+	cd chemins d'accès ex : cd /home/nom_utilisateur/film
+-Création d'un nouveau répertoire 
+	mkdir <nom du répertoire>
+-Création de l'arborescence de répertoires
+	mkdir <répertoire1\répertoire2\répertoire3>
+-Création d'un nouveau fichier
+	touch <fichier>
+-Création de plusieurs fichier 
+	touch <fichier1 fichier2 fichier3>
+-Répertorier les fichiers 
+	ls <chemin d'accès>
+-Copier des fichiers ou répertoires et leur contenu 
+	cp <fichiers> <la destination> ex : cp fichier.txt /home/nom_utilisateur/Documents
+-Combine, énumère et écrit le contenu des fichiers 
+	cat <fichier>
+-Deplacer des fichiers et des répertoires 
+	mv <fichier> <destination> ex : mv fichier.txt /home/nom_utilisateur/Documents
+-Supprimer des fichiers dans un répertoires 
+	rm <fichier>
+-Visualiser les 10 premières lignes d'un texte 
+	head <fichier>
+-Afficher les 10 dernières lignes d'un fichier 
+	taille <fichier>
+-Afficher une ligne de texte ou une chaine de caractères 
+	echo <chaine>
+-Installer des paquet
+	apt-get <commandes>
+-Rentrer dans l'interface nano
+	nano <fichier>
+
+
+
+
+	
