@@ -1,0 +1,4 @@
+Commandes os :
+
+-changer le mot de passe 
+	passwd
