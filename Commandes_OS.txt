@@ -43,6 +43,35 @@ Commandes os :
 -Rentrer dans l'interface nano
 	nano <fichier>
 
+/**Commandes sous Windows **/
+
+-Besoin d'aide pour la commande 
+	help <nom de la commande>
+-Afficher la liste des variables d'environnement
+	set 
+-Afficher la liste des répertoires contenant les programmes que le système peut exécuter
+	path
+-Se déplacer dans l'arborescence des dossiers
+	cd 
+-Afficher la liste des fichiers et des répertoires dans le répertoires courant 
+	dir
+-Créer un répertoire
+	mkdir ou md <fichier>
+-Supprime un répertoire
+	rmdir ou rd <fichier>
+-Copier un fichier 
+	copy <fichier>
+-Créer un ficher avec un texte dedans 
+	copy con <fichier>
+-Ajouter ou gérer les  utilisateurs
+	net user <nom de l'utilisateur et mot de passe > /add
+-Ajouter ou gérer les groupes 
+	net localgoup <nom du groupe> /add
+-Déplacer un utilisateur dans un groupe 
+	net localgroup <nom du groupe> <nom de l'utilisateur> /add
+
+
+
 
 
 
