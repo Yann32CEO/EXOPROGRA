@@ -1,0 +1,95 @@
+ Commandes configuration réseaux sous Linux :
+Sous Linux en interface graphique, on peut aussi trouver dans une application qui s’appelle
+Network Configuration ou configuration réseau, une configuration statique ou dynamique
+pour notre connexion réseau.
+Pour le firewall sou linux on recherche configuration du pare feu (Firewall Configuration).
+Commandes basiques :
+- apt-get update = installer des mis à jour (il est conseillé de l(utiliser pour la
+commande suivante).
+- apt-get install resolvconf = permet d’installer le paquet resolvconf (qui nous servira
+pour les commandes réseaux).
+- apt-get install network-manager = permet d’installer Network Manger qui gère les
+interfaces et leurs configurations (en rajoutant la commande systemctl enable
+NetworkManager on peut le laisser tout le temps active, même au redémarrage).
+- su - = se mettre en mode super utilisateur (mode root).
+- dpkg-reconfigure keyboard-configuration ou setxkbmap be = mettre le clavier en
+clavier Belge.
+Commandes configuration réseaux :
+- ip addr show = cette commande nous permet de voir les cartes de notre
+serveur et également les adresses IP ( ip -6 addr show pour l’IPv6).
+- ip link show = vous montre votre adresse MAC et tout le niveau deux de
+votre carte.
+- ip route show = vous montre les route configurer sur le serveur et donc
+aussi celui du default geteway.
+- cat /etc/resolv.conf = vous permet de voir le contenu du fichier resolv.conf
+qui ce trouve dans le dossier etc, et qui sert à vous montrer le serveur
+DNS que vous utilisez et le domaine de recherch e.
+Configuration des paramètres réseau via les fichiers de configuration :
+Dans le fichier avec la racine /etc/network/interfaces, on peut faire en sorte que
+la configuration soit persistante c’est -à-dire qui reste après le reboot d’un
+serveur, comme se fichier est important et qu’il ne faut pas le modifier à la
+légère, il est préférable d’exécuter la commande cp /etc/network/interfaces
+/etc/network/interfaces.serv pour pouvoir copier le contenu du fichier et modifier
+le fichier sans prendre de risque.
+Si on utilise la commande nano /etc/network/interfaces on peut ouvrir le fichier
+et le modifier.
+8
+L’auto devant chaque nom d’interface veut dire que l’interface est fonctionnelle, si on veut
+désactivé l’une des interfaces on peut tout simplement les mettre en commentaire en placent
+un # devant.
+Exemple d’utilisation en adresse statique et dynamique (ne pas oublier d’effectuer un reboot
+ou le redémarrage de votre machine, un init 0 l’arrêtera, ou alors un systemctl restart
+networking qui redémarrera que le réseau) :
+Avec la commande journalctl -xe on peut voir la liste des actions qu’à fait nos interfaces.
+La désactivation/activation/affichage d’une interface :
+- ifdown enp0s3 = vous permet de désactiver l’interface souhaitez (dans ce cas-là
+l’interface enp0s3).
+- Ifup enp0s3 = vous permet d’activer une interface.
+- Ifquery enp0s3 = vous permet de voir la configuration de l’interface enp0s3(cette
+commande est liée au fichier /etc/network/interfaces et donc ne peut-être utiliser sans
+se système).
+Changement de hostnme :
+Dans le fichier /etc/hostname on peut trouver notre hostname (nom d’utilisateur) actuelle et
+le changer en mode statique.
+On peut aussi le changer à chaud (ça veut dire non-persistant) avec la commande
+hostnamectl set hostname nomDUtilisateur.
+Pour voir si ça à fonctionner on peut taper hostnamectl qui nous montre d’autres
+informations dont le nom d’utilisateur actuelle, il y de forte chance qu’il n’a pas changer il faut
+donc utiliser la commande hostname nomDUtilisateur (il faut utiliser le nouveau nom
+d’utilisateur).
+Configuration des paramètres réseaux en ligne de commande :
+Les commandes non persistantes :
+Ajout/suppression d’adresse IP :
+- ip addr flush dev enp0s3 = permet de supprimer toutes les configurations d’adresse
+IPv4 sur l’interface (pour l’IPv6 on utilise la commande ip -6 addr flush dev enp0s3).
+- ip addr add 192.168.30.20/24 dev enp0s3 = permet d’ajouter une adresse
+supplémentaire (un alias).
+- ip addr del 192.168.30.20/24 dev enp0s3 = permet de supprimer une adresse IP.
+9
+Commandes DHCP :
+- dhclient -v enp0s3 = mets l’interface en mode DHCP (à exécuter après la commande
+ip addr flush dev enp0s3).
+- ps aux | grep dhclient = permet de rechercher et afficher les processus en cours
+d’exécution et qui sont liés à DHCP.
+- pkill dhclient = permet de (tuer) d’’arrête tous les processus en cours d’exécution
+associés au programme dhclient.
+Commandes Hostname :
+- hostname NouveauHostname = la commande hostname avant le nom d’un
+utilisiateur permet d’avoir un hostname temporaire.
+Commandes Default Gateway :
+- ip route del default = supprime le default gateway (si on ajoute un -6 après l’ip ça sera
+pour l’IPv6).
+- ip route add default via 172.16.10.1 = permet d’ajouter un default gateway( un -6
+après l’ip = IPv6).
+Tous Gateway (pas forcément le default):
+- ip route add 192.168.1.0/24 via 172.16.10.40 dev enp0s3 = ajout d’une adresse et
+spécifications de la passerelle par la quelle doivent passer les paquets destiné à
+192.168.1.0.
+- ip route del 192.168.1.0/24 = supprimer la passerelle (pas forcément celle par défaut)
+- ip link set enp0s3 up = permet d’activer l’interface enp0s3 (ip link set enp0s3 down
+permet de désactivé l’interface enp0s3).
+- ip link set dev enp0s3 address aa:bb:cc:aa:bb:cc = permet de changer le MAC
+adresse sur une interface.
+Commande DNS :
+nslookup = permet de voir les l’adresse DNS et les domaines qui y sont liés (il faut
+installer dnsutils avec la commande apt-get install dnsutils pour pouvoir l’utiliser).
