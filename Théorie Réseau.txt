@@ -1,0 +1,279 @@
+Réseaux informatiques théorie 
+
+Intro
+
+	
+Composants d’un réseau :4 types 
+1 -> appareils/périphérique 
+2 -> Support à la communication (ex : câbles, ondes)
+3 -> Messages 
+4 -> Règles (dicte comment les messages sont distribués à travers le réseau) -> protocole
+
+	
+	-BYOD(bring your own device) ->payer moins en ne fournissant pas le matériel (éconnomie)
+	
+
+	Caractéristiques d’architecture réseau :
+			-Tolérance aux pannes : plusieurs voies pour une seule communication (redondance entre deux points).
+			-Mise à l’échelle : hiérarchique, standards communs, protocoles communs (le réseau doit pouvoir grandir sans difficultés)
+			-Qualité de service : impact la latence de l’information, priorité de communication (classification du traffic en fonction de la priorité)
+			-Sécurité du réseau : chiffrement, firewall, etc…
+
+
+Communiquer à travers le réseau 
+
+	
+	3 types de réseau Lan, Man, Wan
+				
+	caract. réseaux : -propriété/identification
+			  -débits
+			   -appareil représentatif
+
+
+Cours n°2
+
+Switch relie tout le réseau local
+Switch interconnecte les périphériques du réseau local
+Switch= rectangle avec 4 flèches qui s’opposent
+
+En lan, le matériel appartient à l’entreprise
+Facile d’identifier l’administrateur du réseau local
+L’appareil représentatif du réseau local est le switch
+Réseau lan rapide (100Mb/S -> 1Gb/S)
+
+Wan permet de relier plusieurs réseaux
+Solutions :
+Internet pas privé
+VPN chiffrement des données (clés requises)
+Fibre Optique (cher)
+Satellite
+->n’appartient pas à l’entreprise, service/abonnement 
+ 
+ Peut pas identifier l’administrateur du réseau wan
+Débit variable en fonction de l’abonnement et matériel 
+
+Routeur = cercle 4 flèches opposées 
+L’appareil représentatif du réseau wan est le routeur 
+Le routeur interconnecte les réseaux 
+Routeur plus lent que le switch 
+
+Modèle en couche (TCP/IP ou OSI voir diapo), chaque couche est indépendante 
+
+IPV4 :32 bits IPV6 : 128 bits 
+
+
+Cours n° 3
+
+Encapsulation 
+
+Chaque couche est imbriquée l’un dans l’autre, encapsulation 
+Avec des caractéristiques propres à chacune
+Le contenu des couches peuvent changer sans impacter le déroulement de l’information 
+Le déroulement des couches peut être répété n’importe où dans l’encapsulation 
+L’ordre peut être inversé 
+A chaque étape de l’encapsulation des données sont ajoutées 
+Toutes les couches ne sont pas forcément utilisées
+Encapsulation = mouvement verticale entre les couches 
+
+
+Ex : la lettre 
+
+PDU : chaque couche est différente 
+
+
+Chapitre 1 : Couche applicative 
+
+Couche application TCP/IP reprend application, présentation et session du modèle OSI
+Application : interface qui lie application que l’on utilise et le monde des réseaux 
+
+Protocoles -> ce qui compose les interfaces 
+Entre le serveur et le client, les règles de communications entre les deux 
+
+Dl Cisco packet tracer 
+
+
+
+Configuration du réseau
+
+Adresse et masque vont ensemble 
+
+(Ensemble) Définit l’adresse d’une machine au sein d’un réseau
+Dans packet tracer 
+192,168,1,10-> dernier chiffre = l’appareil 
+255,255,255,0
+Ipconfig -> commande pour voir les paramètres 
+Ping-> -> commande d’une adresse pour voir la connectivité
+
+Service définit par protocole 
+http/https protocole pour se connecter 
+dns nom de domaine /traduit le nom de domaine 
+dchp distribue automatiquement les protocoles et adresse 
+
+DHCP => distribue des adresse ip
+Machine ne devrait pas agir en tant que serveur dhcp (sauf spécifié)
+Les clients ne devraient pas exiger une configuration manuelle . 
+Sécurité ! segmenter les réseaux. 
+DHCP sur le routeur pas sur les sous-réseaux ou bien chez les it 
+Un deuxième serveur dhcp  en secours (chez it)
+DHCP cohabite avec configuration statique
+Garantir des ip différentes pour chaque appareil du réseau
+DHCP doit essayer de garde la même configuration réseau pour chaque client
+DHCP doit savoir retenir les config après redémarrage du serveur 
+Supporter des allocations fixes 
+Allocation d’un identifiant à une machine 
+
+Avantages DHCP :
+Gestion ip centralisés et simplifiés 
+Pas de conflits 
+Partage optimisés des adresses 
+Portable et universel 
+
+Etape de vie DHCP
+-Affectation
+- Réallocation
+-opérations normales 
+-renouvèlement
+-Réaffectation
+ -libération
+
+
+NetBios et Dns traduire adresse ip 
+
+Netbios => nom d’hôte dans les réseaux Microsoft 
+
+Disparait au profit du dns dans les domaines AD
+
+NetBios => Cache local
+	      Fichier LMHOST
+	      Serveur wins
+
+DNS = Domaine Name service 
+Ordre dns : cache local , fichier host, serveur dns 
+
+Fonctionnement DNS :
+	-Base de données distribué 
+	-Hiérarchique 
+
+Pc -> dns  (forward)-> FAI q-> racine
+			         <-r
+			q->.com (tld)
+			<-r
+			
+			q-> youtube.com
+			<-r
+
+Question-réponse: demande à une grosse instance qui redirige a chaque fois vers une instance plus petite 
+Enquête vers different serveur  
+
+Espace dns découpés en zones (voir diapo pour les zones )
+ Différent type de requêtes : 
+Port 53 : UDP(requêtes)et TCP(sync entre les zones)
+Types : itérative, récursive, inverse 
+
+Protocole http : Protocol de transfert 
+Utilisation de balises 
+Http (port 80)
+Proxy mandataire 
+Proxy (port 8080)
+
+Requêtes clients  en http 
+
+MAIL
+SMTP port 25  SMTPS Simple Mail Transfer Protocol
+Envoyer des mails 
+
+POP port 110  POPS Post office Protocol 
+Utilisation simple (connexion serveur, etc.)
+Problème : relever son courrier depuis différents périphériques 
+
+IMAP (port 143) – IMPAS Internet Message Access Protocol 
+Dossier manipulé ne sont plus locaux mais relié directement au serveur 
+Manipulation répercutée sur le serveur 
+Copies locales toujours possibles pour consultations 
+
+Protocole SIVIB
+Sever message block
+Partage de ressources 
+Les clients établissent une connexion à long terme avec le serveur 
+ Après connexion, l’utilisateur peut accéder aux ressources du serveur 
+Protocole TFTP
+Simplifié par rapport au FTP
+UDP au lieu de TCP
+Usage : mécanisme de transfert de fichier léger, peu consommateur de ressources 
+
+Reconnaissance des données grâce aux numéros des ports / IP la même mais port différent 
+
+Réponse : via le port de destination 
+Exemple 
+Http = 80 / https =443
+
+Port entre 0-1023 = ports publiques et contrôlés par L IANA
+
+TCP fiable (pas sécurisé)
+UDP pas fiable
+
+TCP
+	Fiabilité (pas sécurisé)
+	Délivrer les données dans le bon ordre
+	Connexion
+	Contrôle de Flux 
+Un serveur identifie une source
+ 
+Routeur permet d’acheminer d’un point a à b mais sur la meilleure route 
+
+TCP = le plus fiable mais pas le plus sécurisé
+
+Diapo 99 
+Demande 
+Réponse + Demande 
+Réponse 
+
+Diapo 101
+Transmission d’octet
+Il y a mécanisme de réception
+
+Diapo 106 
+Nombre d’envoie varie en fonction des conditions 
+
+UDP  les segments ne sont pas tous là et pas dans le bon ordre 
+
+COUCHE RÉSEAU
+Pas de connexion 
+Pas fiable
+Indépendant du média 
+
+IP 
+-sans connexion (avant l’envoie du paquet)
+-Au mieux (non fiable)
+-Indépendant du média 
+
+IP (source et destination nécessaire) 
+
+Pk créer des réseaux et des sous réseau  sécurité, maintenance, performance
+Plus facile à administrer 
+Influence sur les performances 
+
+1)	Sans connexion 
+2)	Pas fiable, pas son rôle 
+3)	Indépendant du média 
+
+Sans source ni destination => pas d’internet 
+Pk créer des sous réseaux :
+-	+ petit 
+-	+ performant 
+-	Sécurité
+-	Maintenance 
+-	Performances 
+Hiérarchie dans le réseau : réseau – sous réseau – hôte 
+
+
+Les routeurs ne connectent automatiquement que les réseaux auxquels ils sont directement connectés 
+
+Le routeur de gauche ne connait pas le réseau de droite et inversement parce qu’ils ne sont pas connectés entre eux 
+Créer de routes : expliquer au routeur qu’il existe des réseaux distants qu’il ne connait pas 
+-	Comment les atteindre (par où passer)
+Envoie le paquet au prochain point de passage (si on l’eu communiquer d’un réseau à un autre)
+
+Couche 2 : adresse mac ->ethernet
+Tram Ethernet 
+Switch prend la mac adresse par port 
